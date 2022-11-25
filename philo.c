@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:13:06 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/25 21:06:27 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/25 21:45:46 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	*philo_routine(void *a)
 
 	philo = (t_philo *)a;
 	if (philo->philo_id % 2 != 0)
-		ft_usleep(philo->time_to_eat / 2);
+		ft_usleep(philo->time_to_eat / 3);
 	while (!philo->param->dead_flag)
 	{
 		if (philo->param->dead_flag || philo->stop_flag || count_meals(philo))

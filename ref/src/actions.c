@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-skim <min-skim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 23:07:36 by wrickard          #+#    #+#             */
-/*   Updated: 2022/11/24 20:08:14 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/25 21:45:46 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	sleeping(t_philo *philo)
 		ft_time() - philo->start_time, philo->philo_id + 1);
 	}
 	pthread_mutex_unlock(&philo->lock_print);
-	ft_usleep(philo->time_to_sleep);
+	ft_usleep(philo->time_to_sleep + 3);
 }
 
 void	thinking(t_philo *philo)
