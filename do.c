@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   do.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
+/*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:03:29 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/25 22:09:25 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/26 08:45:41 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	take_fork_2(t_philo *philo)
 {
-	pthread_mutex_lock(philo->l_f);
+    pthread_mutex_lock(philo->l_f);
 	pthread_mutex_lock(philo->r_f);
 	pthread_mutex_lock(&philo->print);
 	if (philo->stop_flag != 1)
@@ -66,7 +66,7 @@ void	sleeping(t_philo *philo)
 	printf("%lld %d is sleeping\n",ft_time() - philo->start_time, philo->philo_id + 1);
 	pthread_mutex_unlock(&philo->print);
 	ft_usleep(philo->time_to_sleep);
-	usleep(200);
+	usleep(100);
 }
 
 void	thinking(t_philo *philo)
