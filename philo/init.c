@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:32:39 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/27 21:28:22 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:49:31 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_param(t_param *par, int ac, char **av)
 	if (ac == 6)
 		par->nbr_of_meals = ft_atoi(av[5]);
 	if (par->nbr_of_meals == 0)
-		return (ft_error("0	all philo eat 0 time"));
+		return (ft_error("0 all philo eat 0 time"));
 	if (par->philo_num == 1)
 	{
 		printf("%d %d has taken a fork\n", 0, 1);
