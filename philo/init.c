@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:32:39 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/27 20:58:47 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:28:22 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,6 @@ void	end_threads(t_param *param)
 	int		n;
 
 	n = param->philo_num;
-	if (n == 1)
-	{
-		pthread_mutex_unlock(&param->forks[0]);
-	}
 	while (n)
 	{
 		n--;
