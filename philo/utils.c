@@ -6,16 +6,16 @@
 /*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 19:53:38 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/27 07:40:25 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:06:47 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
-long long   ft_time(void)
+long long	ft_time(void)
 {
-	struct timeval tv;
-	long long       ret;
+	struct timeval	tv;
+	long long		ret;
 
 	gettimeofday(&tv, NULL);
 	ret = 1000 * tv.tv_sec + tv.tv_usec / 1000;
@@ -45,7 +45,7 @@ int	ft_atoi(const char *str)
 	return (neg * result);
 }
 
-int is_digit(char *str)
+int	is_digit(char *str)
 {
 	while (*str)
 	{
@@ -63,11 +63,11 @@ void	ft_usleep(int ms)
 	time = ft_time();
 	usleep(ms * 920);
 	while (ft_time() < time + ms)
-        usleep(3 * ms);
+		usleep(3 * ms);
 }
 
 int	ft_error(char *s)
 {
-	printf("%s\n",s);
+	printf("%s\n", s);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
+/*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:32:39 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/25 20:54:26 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/27 20:58:47 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	init_param(t_param *par, int ac, char **av)
 		return (ft_error("0	all philo eat 0 time"));
 	if (par->philo_num == 1)
 	{
-		printf("%d %d has taken a fork\n",0, 1);
+		printf("%d %d has taken a fork\n", 0, 1);
 		ft_usleep(par->time_to_die);
-		printf("%d %d died\n",par->time_to_die, 1);
+		printf("%d %d died\n", par->time_to_die, 1);
 		return (1);
 	}
 	return (0);
@@ -72,7 +72,7 @@ int	init_mutex(t_param *par)
 	mutex = malloc(sizeof(pthread_mutex_t) * size);
 	if (!mutex)
 		return (ft_error("Error : Malloc Mutex Failed"));
-	while(size--)
+	while (size--)
 		pthread_mutex_init(&mutex[size], NULL);
 	pthread_mutex_init(&par->print, NULL);
 	par->forks = mutex;
@@ -91,7 +91,8 @@ int	init_thread(t_param *par)
 		return (ft_error("Error : Malloc Thread Failed"));
 	while (i < par->philo_num)
 	{
-		pthread_create(&threads[i], NULL, philo_routine, (void *)&par->all_philo[i]);
+		pthread_create(&threads[i], NULL, philo_routine, \
+		(void *)&par->all_philo[i]);
 		i++;
 	}
 	pthread_create(&s_tid, NULL, monitoring, (void *)par->all_philo);

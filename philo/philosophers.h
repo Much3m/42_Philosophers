@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-skim <min-skim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 19:46:18 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/24 21:47:59 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:01:28 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,31 +53,27 @@ typedef struct s_param
 	pthread_mutex_t	print;
 	t_philo			*all_philo;
 }			t_param;
-
-
 /*utils*/
-long long   ft_time(void);
-int		ft_atoi(const char *str);
-int 	is_digit(char *str);
-void	ft_usleep(int ms);
-int	ft_error(char *s);
+long long	ft_time(void);
+int			ft_atoi(const char *str);
+int			is_digit(char *str);
+void		ft_usleep(int ms);
+int			ft_error(char *s);
 
-void	*monitoring(void *a);
-void	*philo_routine(void *a);
+void		*monitoring(void *a);
+void		*philo_routine(void *a);
 
-int	init_param(t_param *par, int ac, char **av);
-void	init_philosophers(t_param *par);
-int	init_mutex(t_param *par);
-int	init_thread(t_param *par);
-void	end_threads(t_param *param);
+int			init_param(t_param *par, int ac, char **av);
+void		init_philosophers(t_param *par);
+int			init_mutex(t_param *par);
+int			init_thread(t_param *par);
+void		end_threads(t_param *param);
 
-void	free_all(t_param *par);
+void		free_all(t_param *par);
 
-void	take_fork(t_philo *philo);
-void	eating(t_philo *philo);
-void	sleeping(t_philo *philo);
-void	thinking(t_philo *philo);
-
-
+void		take_fork(t_philo *philo);
+void		eating(t_philo *philo);
+void		sleeping(t_philo *philo);
+void		thinking(t_philo *philo);
 
 #endif

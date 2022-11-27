@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:15:11 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/25 00:16:52 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/27 21:05:57 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,36 +28,36 @@ int	check_argv(int argc, char **argv)
 	return (0);
 }
 
-int validate(int ac, char **av)
+int	validate(int ac, char **av)
 {
-    int             i;
+	int				i;
 
-    if (ac < 5 || ac > 6)
-       return (ft_error("Error : Check Number of Argumets")); 
-    i = 1;
-    while (av[i])
-    {
-        if (!is_digit(av[i]))
-            return (ft_error("Error : Invalid Argumet"));
-        i++;
-    }
-    if (check_argv(ac, av))
-        return (ft_error("Error : Check the Value of Argumets"));;
-    return (0);
+	if (ac < 5 || ac > 6)
+		return (ft_error("Error : Check Number of Argumets"));
+	i = 1;
+	while (av[i])
+	{
+		if (!is_digit(av[i]))
+			return (ft_error("Error : Invalid Argumet"));
+		i++;
+	}
+	if (check_argv(ac, av))
+		return (ft_error("Error : Check the Value of Argumets"));
+	return (0);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_param     param;
+	t_param		param;
 
-    if (validate(ac, av))
-        return (1);
-    if (init_param(&param, ac, av))
-        return (1);
-    init_mutex(&param);
-    init_philosophers(&param);
-    init_thread(&param);
-    end_threads(&param);
-    free_all(&param);
-    return (0);
+	if (validate(ac, av))
+		return (1);
+	if (init_param(&param, ac, av))
+		return (1);
+	init_mutex(&param);
+	init_philosophers(&param);
+	init_thread(&param);
+	end_threads(&param);
+	free_all(&param);
+	return (0);
 }
