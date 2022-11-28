@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 19:46:18 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/27 21:01:28 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:54:03 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ typedef struct s_philo
 	int				time_to_eat;
 	int				time_to_sleep;
 	long long		limit_lifetime;
-	int				stop_flag;
 	long long		start_time;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*l_f;
@@ -50,6 +49,7 @@ typedef struct s_param
 	int				nbr_of_meals;
 	pthread_mutex_t	*forks;
 	pthread_t		*tid;
+	pthread_mutex_t dead;
 	pthread_mutex_t	print;
 	t_philo			*all_philo;
 }			t_param;

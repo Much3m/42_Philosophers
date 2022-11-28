@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:32:39 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/27 21:49:31 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/28 15:54:48 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	init_philosophers(t_param *par)
 		philos[i].last_eat_time = par->start_time;
 		philos[i].start_time = par->start_time;
 		philos[i].limit_lifetime = par->time_to_die;
-		philos[i].stop_flag = 0;
 		philos[i].l_f = &par->forks[philos[i].philo_id];
 		philos[i].r_f = &par->forks[(philos[i].philo_id + 1) % par->philo_num];
 		philos[i].param = par;
@@ -75,6 +74,7 @@ int	init_mutex(t_param *par)
 	while (size--)
 		pthread_mutex_init(&mutex[size], NULL);
 	pthread_mutex_init(&par->print, NULL);
+	pthread_mutex_init(&par->dead, NULL);
 	par->forks = mutex;
 	return (0);
 }

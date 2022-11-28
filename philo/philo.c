@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:13:06 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/27 20:59:41 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/28 16:51:06 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ int	count_meals(t_philo *philo)
 				flag = 0;
 		if (flag == 1)
 		{
-			i = 0;
-			while (i < philo->philo_num)
-			{
-				philo[i].stop_flag = 1;
-				i++;
-			}
+			pthread_mutex_lock(&philo->param->dead);
+			philo->param->dead_flag = 1;
+			pthread_mutex_unlock(&philo->param->dead);
 			return (1);
 		}
 	}
@@ -40,22 +37,19 @@ int	count_meals(t_philo *philo)
 
 void	dead(t_philo *philo, int i)
 {
+	pthread_mutex_lock(&philo->param->dead);
 	philo->param->dead_flag = 1;
+	pthread_mutex_unlock(&philo->param->dead);
 	pthread_mutex_lock(&philo->print);
 	printf("%lld %d died\n", ft_time() - philo->start_time, \
 	philo[i].philo_id + 1);
-	i = 0;
-	while (i < philo[i].philo_num)
-	{
-		philo[i].stop_flag = 1;
-		i++;
-	}
+	usleep(500);
+	pthread_mutex_unlock(&philo->print);
 }
 
 void	*monitoring(void *a)
 {
 	t_philo		*philo;
-	long long	current;
 	int			i;
 
 	philo = (t_philo *)a;
@@ -65,15 +59,13 @@ void	*monitoring(void *a)
 		i = -1;
 		while (++i < philo->philo_num)
 		{
-			current = ft_time();
-			if (current - philo[i].last_eat_time > philo[i].limit_lifetime)
+			if (ft_time() - philo[i].last_eat_time > philo[i].limit_lifetime)
 			{
 				dead(philo, i);
-				pthread_mutex_unlock(&philo->print);
 				return (NULL);
 			}
 		}
-		if (count_meals(philo) || philo->stop_flag)
+		if (count_meals(philo) || philo->param->dead_flag)
 			return (NULL);
 	}
 	return (NULL);
@@ -88,16 +80,16 @@ void	*philo_routine(void *a)
 		ft_usleep(philo->time_to_eat / 3);
 	while (!philo->param->dead_flag)
 	{
-		if (philo->param->dead_flag || philo->stop_flag || count_meals(philo))
+		if (philo->param->dead_flag || count_meals(philo))
 			return (NULL);
 		take_fork(philo);
-		if (philo->param->dead_flag || philo->stop_flag || count_meals(philo))
+		if (philo->param->dead_flag || count_meals(philo))
 			return (NULL);
 		sleeping(philo);
-		if (philo->param->dead_flag || philo->stop_flag || count_meals(philo))
+		if (philo->param->dead_flag || count_meals(philo))
 			return (NULL);
 		thinking(philo);
-		if (philo->param->dead_flag || philo->stop_flag || count_meals(philo))
+		if (philo->param->dead_flag || count_meals(philo))
 			return (NULL);
 	}
 	return (NULL);
