@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:32:39 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/28 15:54:48 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:03:03 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	init_philosophers(t_param *par)
 		philos[i].l_f = &par->forks[philos[i].philo_id];
 		philos[i].r_f = &par->forks[(philos[i].philo_id + 1) % par->philo_num];
 		philos[i].param = par;
+		pthread_mutex_init(&(philos[i].eat_count), NULL);
 		i++;
 	}
 	par->all_philo = philos;
@@ -76,6 +77,20 @@ int	init_mutex(t_param *par)
 	pthread_mutex_init(&par->print, NULL);
 	pthread_mutex_init(&par->dead, NULL);
 	par->forks = mutex;
+	return (0);
+}
+
+int	init_mutex2(t_philo *philos)
+{
+	int				i;
+
+	i = 0;
+	while (i < philos->philo_num)
+	{
+		pthread_mutex_init(&(philos[i].eat_count), NULL);
+		pthread_mutex_init(&(philos[i].eat_time), NULL);
+		i++;
+	}
 	return (0);
 }
 
@@ -99,16 +114,4 @@ int	init_thread(t_param *par)
 	pthread_join(s_tid, NULL);
 	par->tid = threads;
 	return (0);
-}
-
-void	end_threads(t_param *param)
-{
-	int		n;
-
-	n = param->philo_num;
-	while (n)
-	{
-		n--;
-		pthread_join(param->tid[n], NULL);
-	}
 }

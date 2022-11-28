@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:13:06 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/28 16:51:06 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:19:52 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@ int	count_meals(t_philo *philo)
 		flag = 1;
 		i = -1;
 		while (++i < philo->philo_num)
+		{
+			pthread_mutex_lock(&philo->eat_count);
 			if (philo[i].total_count_eat < philo->total_count_eat_2)
 				flag = 0;
+			pthread_mutex_unlock(&philo->eat_count);
+		}
 		if (flag == 1)
 		{
 			pthread_mutex_lock(&philo->param->dead);
@@ -59,11 +63,14 @@ void	*monitoring(void *a)
 		i = -1;
 		while (++i < philo->philo_num)
 		{
+			pthread_mutex_lock(&philo[i].eat_time);
 			if (ft_time() - philo[i].last_eat_time > philo[i].limit_lifetime)
 			{
 				dead(philo, i);
+				pthread_mutex_unlock(&philo[i].eat_time);
 				return (NULL);
 			}
+			pthread_mutex_unlock(&philo[i].eat_time);
 		}
 		if (count_meals(philo) || philo->param->dead_flag)
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: min-skim <min-skim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:15:11 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/27 21:05:57 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:02:18 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	main(int ac, char **av)
 		return (1);
 	init_mutex(&param);
 	init_philosophers(&param);
+	init_mutex2(param.all_philo);
 	init_thread(&param);
 	end_threads(&param);
 	free_all(&param);

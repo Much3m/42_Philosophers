@@ -6,22 +6,39 @@
 /*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 21:37:51 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/28 15:47:00 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:17:01 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+void	end_threads(t_param *param)
+{
+	int		n;
+
+	n = param->philo_num;
+	while (n)
+	{
+		n--;
+		pthread_join(param->tid[n], NULL);
+	}
+}
+
 void	free_all(t_param *par)
 {
-	int				n;
+	int				i;
 
+	i = 0;
+	while (i < par->philo_num)
+	{
+		pthread_mutex_destroy(&par->forks[i]);
+		pthread_mutex_destroy(&par->all_philo[i].eat_count);
+		pthread_mutex_destroy(&par->all_philo[i].eat_time);
+		i++;
+	}
+	pthread_mutex_destroy(&(par->print));
+	pthread_mutex_destroy(&(par->dead));
 	free(par->tid);
 	free(par->all_philo);
 	free(par->forks);
-	n = par->philo_num;
-	while (n--)
-		pthread_mutex_destroy(&par->forks[n]);
-	pthread_mutex_destroy(&(par->print));
-	pthread_mutex_destroy(&(par->dead));
 }

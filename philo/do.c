@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 17:03:29 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/28 15:52:50 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/28 17:04:03 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,12 @@ void	eating(t_philo *philo)
 			philo->philo_id + 1);
 		pthread_mutex_unlock(&philo->param->dead);
 		pthread_mutex_unlock(&philo->print);
-		philo->total_count_eat += 1;
+		pthread_mutex_lock(&philo->eat_time);
 		philo->last_eat_time = ft_time();
+		pthread_mutex_unlock(&philo->eat_time);
+		pthread_mutex_lock(&philo->eat_count);
+		philo->total_count_eat += 1;
+		pthread_mutex_unlock(&philo->eat_count);
 		ft_usleep(philo->time_to_eat);
 	}
 	pthread_mutex_unlock(philo->l_f);
