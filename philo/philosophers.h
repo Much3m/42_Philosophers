@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 19:46:18 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/28 17:22:35 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:55:56 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_philo
 	int				total_count_eat_2;
 	long long		last_eat_time;
 	int				philo_num;
-	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	long long		limit_lifetime;
@@ -66,7 +65,7 @@ void		*monitoring(void *a);
 void		*philo_routine(void *a);
 
 int			init_param(t_param *par, int ac, char **av);
-void		init_philosophers(t_param *par);
+int			init_philosophers(t_param *par);
 int			init_mutex(t_param *par);
 int			init_thread(t_param *par);
 int			init_mutex2(t_philo *philos);

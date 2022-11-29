@@ -6,7 +6,7 @@
 /*   By: min-skim <min-skim@student.42seou.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/24 16:32:39 by min-skim          #+#    #+#             */
-/*   Updated: 2022/11/28 17:03:03 by min-skim         ###   ########.fr       */
+/*   Updated: 2022/11/29 19:56:49 by min-skim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,17 @@ int	init_param(t_param *par, int ac, char **av)
 	return (0);
 }
 
-void	init_philosophers(t_param *par)
+int	init_philosophers(t_param *par)
 {
 	int				i;
 	t_philo			*philos;
 
-	i = 0;
+	i = -1;
 	philos = malloc(sizeof(t_philo) * par->philo_num);
+	if (!philos)
+		return (ft_error("Malloc philos Failed"));
 	par->start_time = ft_time();
-	while (i < par->philo_num)
+	while (++i < par->philo_num)
 	{
 		philos[i].philo_id = i;
 		philos[i].philo_num = par->philo_num;
@@ -50,17 +52,15 @@ void	init_philosophers(t_param *par)
 		philos[i].total_count_eat_2 = par->nbr_of_meals;
 		philos[i].time_to_eat = par->time_to_eat;
 		philos[i].time_to_sleep = par->time_to_sleep;
-		philos[i].time_to_die = par->time_to_die;
 		philos[i].last_eat_time = par->start_time;
 		philos[i].start_time = par->start_time;
 		philos[i].limit_lifetime = par->time_to_die;
 		philos[i].l_f = &par->forks[philos[i].philo_id];
 		philos[i].r_f = &par->forks[(philos[i].philo_id + 1) % par->philo_num];
 		philos[i].param = par;
-		pthread_mutex_init(&(philos[i].eat_count), NULL);
-		i++;
 	}
 	par->all_philo = philos;
+	return (0);
 }
 
 int	init_mutex(t_param *par)
